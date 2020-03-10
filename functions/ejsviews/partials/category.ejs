@@ -1,17 +1,17 @@
 <div class="btn-group btn-group-toggle" data-toggle="buttons">
-  <label class="btn btn-secondary active">
-    <input type="radio" name="options" id="option1" checked>
+  <label class="btn btn-secondary <%= page === 'storefront' ? 'active' : '' %>">
+    <input type="radio" name="options" id="option1">
     <a href="/" style="color: white"> All</a>
   </label>
-  <label class="btn btn-secondary">
+  <label class="btn btn-secondary <%= page === 'mens' ? 'active' : '' %>">
     <input type="radio" name="options" id="option2">
     <a href="/b/mens" style="color: white"> Mens</a>
   </label>
-  <label class="btn btn-secondary">
+  <label class="btn btn-secondary <%= page === 'womens' ? 'active' : '' %>">
     <input type="radio" name="options" id="option3">
     <a href="/b/womens" style="color: white"> Womens</a>
   </label>
-  <label class="btn btn-secondary">
+  <label class="btn btn-secondary <%= page === 'unisex' ? 'active' : '' %>">
     <input type="radio" name="options" id="option3">
     <a href="/b/unisex" style="color: white"> Unisex</a>
   </label>
