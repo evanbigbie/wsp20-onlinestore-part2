@@ -25,6 +25,10 @@ function add_page_secured() {
             <p id="price_error" style="color:red;" />
         </div>
         <div class="form-group">
+            Category: <input class="form-control" type="text" id="category" />
+            <p id="category_error" style="color:red;" />
+        </div>
+        <div class="form-group">
             Image: <input type="file" id="imageButton" value="upload" />
             <p id="image_error" style="color:red;" />
         </div>
@@ -43,20 +47,23 @@ async function addProduct() {
     const name = document.getElementById('name').value
     const summary = document.getElementById('summary').value
     let price = document.getElementById('price').value
+    const category = document.getElementById('category').value
 
     // input validation
     const nameErrorTag = document.getElementById('name_error')
     const summaryErrorTag = document.getElementById('summary_error')
     const priceErrorTag = document.getElementById('price_error')
+    const categoryErrorTag = document.getElementById('category_error')
     const imageErrorTag = document.getElementById('image_error')
 
     nameErrorTag.innerHTML = validate_name(name)
     summaryErrorTag.innerHTML = validate_summary(summary)
     priceErrorTag.innerHTML = validate_price(price)
+    categoryErrorTag.innerHTML = validate_category(category)
     imageErrorTag.innerHTML = !glImageFile2Add ? 'Error: image file not selected' : null
 
     if (nameErrorTag.innerHTML || summaryErrorTag.innerHTML 
-        || priceErrorTag.innerHTML || imageErrorTag.innerHTML) {
+        || priceErrorTag.innerHTML || imageErrorTag.innerHTML || categoryErrorTag.innerHTML) {
             return
         }
 
@@ -71,7 +78,7 @@ async function addProduct() {
         // product: name, summary, price in Firestore
         price = Number(price)
         await firebase.firestore().collection(COLLECTION).doc()
-            .set({name, summary, price, image, image_url})
+            .set({name, summary, price, category, image, image_url})
 
         // console.log('image_url', image_url)
         glPageContent.innerHTML = `

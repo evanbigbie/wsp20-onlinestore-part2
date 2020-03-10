@@ -19,3 +19,10 @@ function validate_price(price) {
   else
     return null
 }
+
+function validate_category(category) {
+  if (category == 'mens' || category == 'womens' || category == 'unisex')
+    return null
+  else
+    return `Error: Enter mens, womens, or unisex`
+}

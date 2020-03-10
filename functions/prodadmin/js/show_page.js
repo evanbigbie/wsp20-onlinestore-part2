@@ -29,11 +29,11 @@ async function show_page_secured() {
         // read all the products from the collection
         snapshot.forEach( doc => {
             // read each key-value in document and then store it into a var
-            const {name, summary, price, image, image_url} = doc.data()
+            const {name, summary, price, category, image, image_url} = doc.data()
             // construct a javascript object:
             // like primary key in SQL, each NoSQL document has a document id
             // here, variable docId is storing the doc.id
-            const p = {docId: doc.id, name, summary, price, image, image_url}
+            const p = {docId: doc.id, name, summary, price, category, image, image_url}
             // push into products array:
             products.push(p)
         })
@@ -102,6 +102,10 @@ function editProduct(index) {
         Price: <input class="form-control" type="text" id="price" value="${p.price}"/>
         <p id="price_error" style="color:red;" />
     </div>
+    <div class="form-group">
+        Category: <input class="form-control" type="text" id="category" value="${p.category}"/>
+        <p id="category_error" style="color:red;" />
+    </div>
     Current Image:<br>
     <img src="${p.image_url}"><br>
     <div class="form-group">
@@ -130,18 +134,21 @@ async function update(index) {
     const newName = document.getElementById('name').value
     const newSummary = document.getElementById('summary').value
     const newPrice = document.getElementById('price').value
+    const newCategory = document.getElementById('category').value
 
     // validate new values (don't need to include image in validation)
     const nameErrorTag = document.getElementById('name_error')
     const summaryErrorTag = document.getElementById('summary_error')
     const priceErrorTag = document.getElementById('price_error')
+    const categoryErrorTag = document.getElementById('category_error')
     // these functions were already written for 'add'
     nameErrorTag.innerHTML = validate_name(newName)
     summaryErrorTag.innerHTML = validate_summary(newSummary)
     priceErrorTag.innerHTML = validate_price(newPrice)
+    categoryErrorTag.innerHTML = validate_category(newCategory)
 
     // if (... 'is set')
-    if (nameErrorTag.innerHTML || summaryErrorTag.innerHTML || priceErrorTag.innerHTML) {
+    if (nameErrorTag.innerHTML || summaryErrorTag.innerHTML || priceErrorTag.innerHTML || categoryErrorTag.innerHTML) {
         return
     }
 
@@ -163,6 +170,11 @@ async function update(index) {
     if (p.price !== newPrice) {
         // have to nest Number here
         newInfo.price = Number(Number(newPrice).toFixed(2))
+        updated = true
+    }
+    if (p.category !== newCategory) {
+        // have to nest Number here
+        newCategory.category = newCategory
         updated = true
     }
     // if not set
