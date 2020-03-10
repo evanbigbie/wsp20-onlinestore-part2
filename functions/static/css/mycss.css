@@ -4,3 +4,21 @@
   padding: 15px;
   margin: auto;
 }
+
+.pageName {
+  width: 100%;
+  max-width: 400px;
+  padding: 15px;
+  padding-top: 25px;
+  padding-bottom: 25px;
+  margin: auto;
+}
+
+.btn-group {
+  width: 100%;
+  max-width: 300px;
+  padding: 15px;
+  padding-top: 25px;
+  padding-bottom: 25px;
+  /* margin: auto; */
+}

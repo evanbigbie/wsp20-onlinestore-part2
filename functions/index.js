@@ -105,6 +105,52 @@ app.get('/b/profile', auth, (req, res) => {
     }
 })
 
+app.get('/b/mens', auth, async (req, res) => {  // Arrow: fn def is given directly -- request and response object
+    const coll = firebase.firestore().collection(Constants.COLL_PRODUCTS)
+    try {
+        let products = []
+        const snapshot = await coll.orderBy("name").get()
+        snapshot.forEach(doc => {
+            products.push({id: doc.id, data: doc.data()})
+        })
+        // can pass one object with render
+        res.render('mens.ejs', {error: false, products, user: req.user})
+    } catch (e) {
+        res.render('mens.ejs', {error: e, user: req.user}) // error: true
+    }
+})
+
+app.get('/b/womens', auth, async (req, res) => {  // Arrow: fn def is given directly -- request and response object
+    const coll = firebase.firestore().collection(Constants.COLL_PRODUCTS)
+    try {
+        let products = []
+        const snapshot = await coll.orderBy("name").get()
+        snapshot.forEach(doc => {
+            products.push({id: doc.id, data: doc.data()})
+        })
+        // can pass one object with render
+        res.render('womens.ejs', {error: false, products, user: req.user})
+    } catch (e) {
+        res.render('womens.ejs', {error: e, user: req.user}) // error: true
+    }
+})
+
+app.get('/b/unisex', auth, async (req, res) => {  // Arrow: fn def is given directly -- request and response object
+    const coll = firebase.firestore().collection(Constants.COLL_PRODUCTS)
+    try {
+        let products = []
+        const snapshot = await coll.orderBy("name").get()
+        snapshot.forEach(doc => {
+            products.push({id: doc.id, data: doc.data()})
+        })
+        // can pass one object with render
+        res.render('unisex.ejs', {error: false, products, user: req.user})
+    } catch (e) {
+        res.render('unisex.ejs', {error: e, user: req.user}) // error: true
+    }
+})
+
+
 // middleware
 
 // next means that (req, res) will be called after auth is called in app.get fns
